@@ -34,18 +34,20 @@ const NoteList = ({ notes }: NoteListProps) => {
               <p>{note.content}</p>
             </Link>
 
+            {/* Перевірка на порожнє значення тегу */}
             {note.tag && note.tag.trim() !== "" && (
               <span className={css.tag}>#{note.tag}</span>
             )}
 
             <div className={css.footer}>
-              <Link href={`/notes/${note.id}`} className={css.button}>
-                View details
-              </Link>
-
+              {/* Кнопка видалення винесена окремо від Link */}
               <button onClick={() => mutate(note.id)} className={css.button}>
                 Delete
               </button>
+
+              <Link href={`/notes/${note.id}`} className={css.button}>
+                View details
+              </Link>
             </div>
           </div>
         </li>
