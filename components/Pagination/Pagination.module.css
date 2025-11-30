@@ -1,11 +1,18 @@
 .pagination {
   display: flex;
+
   justify-content: center;
   gap: 4px;
   margin: 16px 0;
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.pagination ul {
+  display: flex;
+  gap: 4px;
+  list-style: none;
 }
 
 .pagination li {
@@ -17,15 +24,6 @@
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
-}
-
-.pagination ul {
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 .pagination li a {
