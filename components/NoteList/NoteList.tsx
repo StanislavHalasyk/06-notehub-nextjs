@@ -13,11 +13,9 @@ export interface NoteListProps {
 const NoteList = ({ notes }: NoteListProps) => {
   const queryClient = useQueryClient();
 
-  //  Мутація для видалення нотатки
   const { mutate } = useMutation({
     mutationFn: (id: string) => deleteNote(id),
     onSuccess: () => {
-      // Після видалення — оновлюємо кеш
       queryClient.invalidateQueries({ queryKey: ["notes"] });
     },
   });
@@ -30,19 +28,26 @@ const NoteList = ({ notes }: NoteListProps) => {
     <ul className={css.list}>
       {notes.map((note) => (
         <li key={note.id} className={css.item}>
-          <Link href={`/notes/${note.id}`} className={css.link}>
-            <h3>{note.title}</h3>
-            <p>{note.content}</p>
+          <div>
+            <Link href={`/notes/${note.id}`} className={css.link}>
+              <h3>{note.title}</h3>
+              <p>{note.content}</p>
+            </Link>
+
+            {note.tag && note.tag.trim() !== "" && (
+              <span className={css.tag}>#{note.tag}</span>
+            )}
+
             <div className={css.footer}>
-              {note.tag && <span className={css.tag}>#{note.tag}</span>}
               <Link href={`/notes/${note.id}`} className={css.button}>
                 View details
               </Link>
+
               <button onClick={() => mutate(note.id)} className={css.button}>
                 Delete
               </button>
             </div>
-          </Link>
+          </div>
         </li>
       ))}
     </ul>
